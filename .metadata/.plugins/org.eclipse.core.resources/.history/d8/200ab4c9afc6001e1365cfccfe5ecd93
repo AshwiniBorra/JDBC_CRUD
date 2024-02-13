@@ -1,0 +1,71 @@
+package com.task.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.task.bean.EmployeeBean;
+import com.task.util.DBUtil;
+
+public class EmployeeDaoImpl implements IEmployeeDao{
+	public static PreparedStatement pst=null;
+	 public static Connection connection=null;
+		
+
+	
+	public void insertEmployee(EmployeeBean bean) throws ClassNotFoundException, SQLException {
+		int empId=bean.getEmpid();
+		String empName=bean.getEmpname();
+		String empAddress=bean.getEmpaddress();
+		connection=DBUtil.getDBConnection();
+		pst=connection.prepareStatement("insert into emp values(? ,? ,?)");
+	    pst.setInt(1, empId);
+	    pst.setString(2, empName);
+	    pst.setString(3, empAddress);
+	    pst.executeUpdate();
+	    System.out.println("inserted one record sucessfully");
+	}
+	    public void updateEmployee(EmployeeBean bean) throws ClassNotFoundException, SQLException {
+	        int empId = bean.getEmpid();
+	        String empName = bean.getEmpname();
+	        String empAddress = bean.getEmpaddress();
+	        connection = DBUtil.getDBConnection();
+	        pst = connection.prepareStatement("update emp set empname=?, empaddress=? where empid=?");
+	        pst.setString(1, empName);
+	        pst.setString(2, empAddress);
+	        pst.setInt(3, empId);
+	        pst.executeUpdate();
+	        System.out.println("Updated one record successfully");
+	    }
+	public void deleteEmployee(EmployeeBean bean) throws ClassNotFoundException, SQLException {
+		int empId = bean.getEmpid();
+        String empName = bean.getEmpname();
+        String empAddress = bean.getEmpaddress();
+        Connection connection=DBUtil.getDBConnection();
+		PreparedStatement pst=connection.prepareStatement("DELETE FROM emp WHERE empname = ? AND empaddress = ? AND empid = ?");
+        pst.setString(1, empName);
+        pst.setString(2, empAddress);
+        pst.setInt(3, empId);
+        pst.execute();
+        System.out.println("deleted one record successfully");
+		
+		
+	}
+	
+	public void selectEmployee(EmployeeBean bean) throws ClassNotFoundException, SQLException {
+		int empId=bean.getEmpid();
+		String empName=bean.getEmpname();
+		String empAddress=bean.getEmpaddress();
+		connection=DBUtil.getDBConnection();
+		pst=connection.prepareStatement("select* emp values(? ,? ,?)");
+	    pst.setInt(1, empId);
+	    pst.setString(2, empName);
+	    pst.setString(3, empAddress);
+	    pst.executeQuery();
+	    System.out.println("selected one record sucessfully");
+	}
+		
+	}
+
+	
+

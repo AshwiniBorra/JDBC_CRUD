@@ -1,0 +1,107 @@
+package com.task.ui;
+import com.task.service.*;
+import com.task.bean.EmployeeBean;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+
+public class Demo_CRUD {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Select your option");
+		System.out.println("1.insert");//Create
+		System.out.println("2.update");//update
+		System.out.println("3.Select");//read
+		System.out.println("4.Delete");//delete
+		int option=sc.nextInt();
+		switch(option){
+			case 1:
+			{
+				insertEmployee();
+				break;
+			}
+			case 2:
+			{
+				updateEmployee();
+				break;
+			}
+			case 3:
+			{
+				selectEmployee();
+				break;
+			}
+			case 4:
+			{
+			  deleteEmployee();
+			  break;
+			}
+			default:
+			{
+				System.out.println("your entered option is not match");
+			}
+		}
+	}	
+	private static void insertEmployee() throws ClassNotFoundException, SQLException {
+		EmployeeServiceImpl service=new EmployeeServiceImpl();
+		EmployeeBean bean=new EmployeeBean();
+		bean.setEmpid(101);
+		bean.setEmpname("Ashu");
+		bean.setEmpaddress("Hyd");
+		service.insertEmployee(bean);
+		
+	}public boolean updateEmployee(EmployeeBean bean) throws SQLException {
+	    String sql = "UPDATE emp SET empName=?, empAddress=? WHERE empId=?";
+	    
+	    try (Connection con = getConnection();
+	         PreparedStatement pstmt = con.prepareStatement(sql)) {
+	        
+	        pstmt.setString(1, bean.getEmpname());
+	        pstmt.setString(2, bean.getEmpaddress());
+	        pstmt.setInt(3, bean.getEmpid()); // Assuming empId is an integer
+	        
+	        int rowsAffected = pstmt.executeUpdate();
+	        return rowsAffected > 0;
+	    } catch (SQLException e) {
+	        // Handle exceptions
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+
+	private Connection getConnection() {
+		
+		return null;
+	}
+	/*
+	 * private static void updateEmployee() throws ClassNotFoundException,
+	 * SQLException { EmployeeServiceImpl service = new EmployeeServiceImpl();
+	 * EmployeeBean bean = new EmployeeBean(); bean.setEmpid(101);
+	 * bean.setEmpname(""); bean.setEmpaddress("");
+	 * service.updateEmployee(bean); }
+	 */
+	private static void selectEmployee() throws ClassNotFoundException, SQLException {
+		EmployeeServiceImpl service=new EmployeeServiceImpl();
+		EmployeeBean bean=new EmployeeBean();
+		bean.setEmpid(101);
+		bean.setEmpname("Ajju");
+		bean.setEmpaddress("mpt");
+		service.selectEmployee(bean);
+	}
+	private static void deleteEmployee() throws ClassNotFoundException, SQLException {
+		EmployeeServiceImpl service=new EmployeeServiceImpl();
+		EmployeeBean bean=new EmployeeBean();
+		bean.setEmpid(101);
+		bean.setEmpname("Ajju");
+		bean.setEmpaddress("mpt");
+		service.deleteEmployee(bean);
+	}
+	
+    
+		
+	
+}
+

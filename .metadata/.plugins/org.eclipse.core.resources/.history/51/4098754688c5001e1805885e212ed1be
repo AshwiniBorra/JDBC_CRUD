@@ -1,0 +1,38 @@
+package com.task.ui;
+
+import java.util.Scanner;
+
+public class Demo_CRUD {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Select your option");
+		System.out.println("1.insert");
+		System.out.println("2.update");
+		System.out.println("3.Select");
+		System.out.println("4.Delete");
+		int option=sc.nextInt();
+		switch(option){
+			case 1:
+			{
+				
+			}
+			case 2:
+			{
+				
+			}
+			case 3:
+			{
+				
+			}
+			case 4:
+			{
+				
+			}
+			default:
+			{
+				System.out.println("your entered option is not match");
+			}
+		}
+	}
+
+}
